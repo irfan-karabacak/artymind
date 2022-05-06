@@ -1,5 +1,4 @@
 PyQt5
-rake
-rake_nltk
 yake
-requests
+rake_nltk
+googletrans
