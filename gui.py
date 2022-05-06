@@ -161,14 +161,14 @@ class Window(QWidget):
         self.create_image()
 
         image = cv2.imread(os.path.join(self.dir, "artymind_output.png"))
-
+  
         if self.resolution_combobox.currentText() == "256":
             reso_image = cv2.resize(image, (256, 256))
         if self.resolution_combobox.currentText() == "512":
             reso_image = cv2.resize(image, (512, 512))
         if self.resolution_combobox.currentText() == "736":
             reso_image = cv2.resize(image, (736, 736))
-
+            
         cv2.imwrite(os.path.join(self.dir, "artymind_output.png"), reso_image)
 
     def create_image(self):
