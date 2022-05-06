@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5 import QtGui
 from styles import styles
 from googletrans import Translator
-from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtCore import Qt
 import sys
 import os
 import yake
@@ -160,20 +160,22 @@ class Window(QWidget):
         )
         self.create_image()
 
-        image = cv2.imread("created_image.png")
+        image = cv2.imread(os.path.join(self.dir, "artymind_output.png"))
+  
         if self.resolution_combobox.currentText() == "256":
             reso_image = cv2.resize(image, (256, 256))
         if self.resolution_combobox.currentText() == "512":
             reso_image = cv2.resize(image, (512, 512))
         if self.resolution_combobox.currentText() == "736":
             reso_image = cv2.resize(image, (736, 736))
-            # cv2.imwrite("created_image.png",reso_image)
+            
+        cv2.imwrite(os.path.join(self.dir, "artymind_output.png"), reso_image)
 
     def create_image(self):
         word = keywords[0][0]
         # print(word)
         translated_word = translator.translate(word)
-        # print(translated_word.text)
+        print(translated_word.text)
         r = requests.post(
             "https://api.deepai.org/api/text2img",
             data={
@@ -184,16 +186,16 @@ class Window(QWidget):
 
         # print(r.json())
         response = requests.get(r.json()["output_url"])
-        with open(f"{self.dir}/created_image.png", "wb") as file:
+        with open(f"{self.dir}/artymind_output.png", "wb") as file:
             file.write(response.content)
-        pixmap = QtGui.QPixmap(f"{self.dir}/created_image.png")
+        pixmap = QtGui.QPixmap(f"{self.dir}/artymind_output.png")
         self.image.setPixmap(pixmap)
         self.label.setVisible(False)
         self.message_box(
             QMessageBox.Information,
             QMessageBox.Ok,
             "Success",
-            f"Image created as {self.dir}/created_image.png.",
+            f"Image created as {self.dir}/artymind_output.png.",
         )
 
     def message_box(self, icon, buttons, title, text):
