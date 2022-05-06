@@ -1,1 +1,4 @@
 PyQt5
+yake
+rake_nltk
+googletrans
