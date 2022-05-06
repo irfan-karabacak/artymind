@@ -8,8 +8,7 @@ import sys
 import os
 import yake
 import requests
-
-# import cv2
+import cv2
 
 
 translator = Translator()
@@ -161,14 +160,14 @@ class Window(QWidget):
         )
         self.create_image()
 
-        # image = cv2.imread("created_image.png")
-        # if self.resolution_combobox.currentText() == "256":
-        #     reso_image = cv2.resize(image, (256, 256))
-        # if self.resolution_combobox.currentText() == "512":
-        #     reso_image = cv2.resize(image, (512, 512))
-        # if self.resolution_combobox.currentText() == "736":
-        #     reso_image = cv2.resize(image, (736, 736))
-        #     # cv2.imwrite("created_image.png",reso_image)
+        image = cv2.imread("created_image.png")
+        if self.resolution_combobox.currentText() == "256":
+            reso_image = cv2.resize(image, (256, 256))
+        if self.resolution_combobox.currentText() == "512":
+            reso_image = cv2.resize(image, (512, 512))
+        if self.resolution_combobox.currentText() == "736":
+            reso_image = cv2.resize(image, (736, 736))
+            # cv2.imwrite("created_image.png",reso_image)
 
     def create_image(self):
         word = keywords[0][0]
