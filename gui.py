@@ -1,14 +1,16 @@
 from asyncio.windows_events import NULL
 from PyQt5.QtWidgets import *
 from PyQt5 import QtGui
+from styles import styles
+from googletrans import Translator
 from PyQt5.QtCore import Qt, QTimer
 import sys
 import os
-from cv2 import resize
 import yake
 import requests
-import cv2
-from googletrans import Translator
+
+# import cv2
+
 
 translator = Translator()
 kw_extractor = yake.KeywordExtractor()
@@ -25,8 +27,6 @@ custom_kw_extractor = yake.KeywordExtractor(
     top=numOfKeywords,
     features=None,
 )
-
-from styles import styles
 
 
 class Window(QWidget):
