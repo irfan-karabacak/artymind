@@ -1,1 +1,5 @@
 PyQt5
+rake
+rake_nltk
+yake
+requests
