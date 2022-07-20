@@ -181,7 +181,7 @@ class Window(QWidget):
             data={
                 "text": translated_word.text,
             },
-            headers={"api-key": "0d0bb15f-c305-4d4c-b63d-cbb563e35a25"},
+            headers={"api-key": "Enter your api-key here."},
         )
 
         # print(r.json())
