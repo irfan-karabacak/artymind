@@ -1,18 +1,9 @@
 import requests
-
-headers = {
-    "Authorization": "API_KEY_HERE",
-}
-
-# change to a full file path of the image you want to transform
-body = {
-    "image": open("/full/path/to/image.jpg", "rb"),
-}
-
-response = requests.post(
-    "https://api.hotpot.ai/remove-background", headers=headers, files=body
+r = requests.post(
+    "https://api.deepai.org/api/text2img",
+    data={
+        'text': 'araba',
+    },
+    headers={'api-key': 'bfe4e245-d56d-4e13-bac6-b1fde27adb14'}
 )
-
-# change to a full file path where you want to save the resulting image
-with open("/full/path/to/image-nobg.jpg", "wb") as file:
-    file.write(response.content)
+print(r.json())
