@@ -1,3 +1,5 @@
+# Imports.
+
 from asyncio.windows_events import NULL
 from PyQt5.QtWidgets import *
 from PyQt5 import QtGui
@@ -10,7 +12,7 @@ import yake
 import requests
 import cv2
 
-
+# Initializing translator and keyword searching system.
 translator = Translator()
 kw_extractor = yake.KeywordExtractor()
 language = "en"
@@ -83,6 +85,7 @@ class Window(QWidget):
         self.setLayout(self.layout)
 
     def reset(self):
+        # This function sets all fields to default.
         self.textInput.setText("")
         self.image.setPixmap(QtGui.QPixmap(""))
         self.resolution_combobox.setCurrentIndex(0)
@@ -90,6 +93,7 @@ class Window(QWidget):
         self.label.setVisible(False)
 
     def placement(self):
+        # Layout and widget management.
         h_box = QHBoxLayout()
         h_box.addWidget(self.output_path_button)
         h_box.addWidget(self.create_button)
@@ -108,6 +112,7 @@ class Window(QWidget):
         self.layout.addStretch()
 
     def timeout(self):
+        # After searching for keywords, using some conditional statements so we could know if there is something missing. Yn case everything is alright, we can trigger our timeout_subfunc function. 
         global keywords
         keywords = custom_kw_extractor.extract_keywords(self.textInput.toPlainText())
         # print(keywords)
@@ -151,6 +156,7 @@ class Window(QWidget):
             self.timeout_subfunc()
 
     def timeout_subfunc(self):
+        # Triggering create_image function and then resizing the image if desired.
         self.label.setVisible(True)
         self.message_box(
             QMessageBox.Icon.Information,
@@ -172,8 +178,8 @@ class Window(QWidget):
         cv2.imwrite(os.path.join(self.dir, "artymind_output.png"), reso_image)
 
     def create_image(self):
+        # Gathering the image using the DeepAI Api.
         word = keywords[0][0]
-        # print(word)
         translated_word = translator.translate(word)
         print(translated_word.text)
         r = requests.post(
@@ -199,6 +205,7 @@ class Window(QWidget):
         )
 
     def message_box(self, icon, buttons, title, text):
+        # Just a function to simply create message dialogs.
         msg = QMessageBox()
         msg.setIcon(icon)
         msg.setText(text)
@@ -207,6 +214,7 @@ class Window(QWidget):
         return msg.exec()
 
     def modify_output_path(self):
+        # Modifying output path if needed. The output image will appear in that path.
         self.temp_path = self.dir
         self.dir = QFileDialog.getExistingDirectory(
             None, "Select project folder:", self.environment, QFileDialog.ShowDirsOnly
